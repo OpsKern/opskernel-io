@@ -30,7 +30,7 @@ jobs:
           mkdir -p src/content/feature-proposals
           mkdir -p /tmp/ai-wiki
           git clone --depth 1 git@github.com:OpsKern/ai-wiki.git /tmp/ai-wiki
-          SRC=/tmp/ai-wiki/projects/aiconsole-core/intel/feature-proposals.md
+          SRC=/tmp/ai-wiki/projects/hookd/intel/feature-proposals.md
           DST=src/content/feature-proposals/latest.md
           if [[ ! -f "$SRC" ]]; then
             echo "intel-refresh: source missing at $SRC — nothing to pull"

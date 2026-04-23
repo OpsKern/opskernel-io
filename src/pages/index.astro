@@ -1,5 +1,6 @@
 ---
 import Base from '~/layouts/Base.astro';
+import Nav from '~/components/Nav.astro';
 import Hero from '~/components/Hero.astro';
 import Trust from '~/components/Trust.astro';
 import Problem from '~/components/Problem.astro';
@@ -19,7 +20,8 @@ const NOINDEX_UNTIL_LAUNCH = true;
 <Base noindex={NOINDEX_UNTIL_LAUNCH}>
   <FathomTag slot="head" />
 
-  <main>
+  <Nav />
+  <main id="main">
     <Hero />
     <Trust />
     <Problem />

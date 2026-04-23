@@ -46,6 +46,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://opskernel.i
     <slot name="head" />
   </head>
   <body class="bg-surface text-ink antialiased min-h-screen flex flex-col">
+    <a
+      href="#main"
+      class="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-4 focus-visible:left-4 focus-visible:z-50 focus-visible:bg-accent focus-visible:text-surface focus-visible:px-4 focus-visible:py-2 focus-visible:rounded-md focus-visible:font-medium"
+    >
+      Skip to main content
+    </a>
     <slot />
   </body>
 </html>

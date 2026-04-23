@@ -6,10 +6,10 @@ export interface Props {
 
 const { id = 'waitlist', variant = 'hero' } = Astro.props;
 
-// Buttondown form target — activated in Phase A.1 after DMARC/Turnstile.
-// Until then, the form is rendered but the submit handler is inert.
-const BUTTONDOWN_USER = 'aiconsole'; // TODO(A.1): lock once Buttondown account created
-const ACTIVE = false; // flip to true in Phase A.1
+// Buttondown list: username 'opskernel', sending domain newsletter.opskernel.io (DNS validated 2026-04-21).
+// Turnstile deferred — low-volume waitlist stage; add before list goes above ~1k/day.
+const BUTTONDOWN_USER = 'opskernel';
+const ACTIVE = true;
 ---
 
 <form

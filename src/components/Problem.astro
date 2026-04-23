@@ -1,26 +1,28 @@
 ---
 const pains = [
   {
-    label: 'Prompt leaks',
-    body: 'Secrets, credentials, and customer PII end up in prompts you never meant to send. There is no undo once the request hits the provider.',
+    label: 'Your .env is in that prompt.',
+    body: "Cursor sends your full file context. Claude Code sends your repo. The API key three lines above the function you're asking about goes with it.",
   },
   {
-    label: 'Code leaks',
-    body: 'Your full repo context rides in every Cursor autocomplete and every Claude Code message. Vendor training policies change; your NDA doesn\u2019t.',
+    label: "Vendor training policies change. Your NDA doesn't.",
+    body: 'OpenAI, Anthropic, and Google all reserve the right to use your prompts for improvement. Read the current policy — then read it again in six months.',
   },
   {
-    label: 'No audit trail',
-    body: 'Compliance auditors want a record of what AI saw. SaaS LLM vendors don\u2019t give you one — and a screenshot is not a hash-chained log.',
+    label: 'Compliance needs a log. "Trust me" is not a log.',
+    body: 'SOC 2, HIPAA, and GDPR auditors want a tamper-evident record of what AI saw. SaaS LLM vendors do not give you one.',
   },
 ];
 ---
 
 <section class="w-full px-6 md:px-12 lg:px-16 py-section">
   <div class="max-w-prose mx-auto">
-    <h2 class="font-display font-semibold text-4xl mb-10 tracking-tight">
-      Your AI assistant is an exfiltration vector<br />
-      <span class="text-ink-muted">you haven't audited.</span>
+    <h2 class="font-display font-semibold text-4xl mb-4 tracking-tight">
+      You know this is happening.
     </h2>
+    <p class="text-ink-muted text-xl mb-10 max-w-narrow">
+      Every prompt is a file read. Most engineers just haven't looked at what rides along.
+    </p>
     <ul class="grid grid-cols-1 md:grid-cols-3 gap-8">
       {
         pains.map(({ label, body }) => (
@@ -32,7 +34,7 @@ const pains = [
               ●
             </div>
             <h3 class="font-medium text-ink">{label}</h3>
-            <p class="text-ink-muted">{body}</p>
+            <p class="text-ink-muted text-sm leading-relaxed">{body}</p>
           </li>
         ))
       }

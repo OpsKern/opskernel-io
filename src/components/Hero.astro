@@ -5,7 +5,7 @@
 <section class="w-full min-h-[60vh] flex flex-col justify-center px-6 md:px-12 lg:px-16 py-section">
   <div class="max-w-prose">
     <p class="font-mono text-sm text-ink-muted mb-6 tracking-wide">
-      aiconsole <span class="text-accent">●</span> local-first AI governance
+      hookd <span class="text-accent">●</span> local-first AI governance
     </p>
 
     <h1
@@ -16,9 +16,9 @@
     </h1>
 
     <p class="text-xl text-ink-muted mb-4 max-w-narrow">
-      aiconsole intercepts prompts at the OS level — before they hit the network. Redact secrets,
-      block leaks, and keep a tamper-evident log. No SDK. No cloud. Nothing leaves your machine
-      unless you say so.
+      hookd intercepts prompts at the OS level — before they hit the network. Redact secrets, block
+      leaks, and keep a tamper-evident log. No SDK. No cloud. Nothing leaves your machine unless you
+      say so.
     </p>
 
     <p class="font-mono text-sm text-ink-subtle mb-10 max-w-narrow">
@@ -40,11 +40,11 @@
       </a>
     </div>
 
-    <figure class="mt-8" aria-label="Example aiconsole intercept output">
+    <figure class="mt-8" aria-label="Example hookd intercept output">
       <div
         class="rounded-lg bg-surface-raised border border-ink-subtle/20 overflow-hidden font-mono text-xs leading-relaxed"
         role="img"
-        aria-label="Terminal output showing aiconsole blocking a prompt that contained .env secrets"
+        aria-label="Terminal output showing hookd blocking a prompt that contained .env secrets"
       >
         <div
           class="flex items-center gap-2 px-4 py-2 border-b border-ink-subtle/20 bg-surface-sunken"
@@ -57,7 +57,7 @@
         <div class="p-4 space-y-1 text-[11px] sm:text-xs">
           <p class="text-ink-subtle">$ claude code --write-code auth-middleware.go</p>
           <p class="text-ink-muted">
-            <span class="text-accent font-semibold">[aiconsole]</span> intercepted outbound → api.anthropic.com
+            <span class="text-accent font-semibold">[hookd]</span> intercepted outbound → api.anthropic.com
           </p>
           <p class="text-ink-muted pl-4">
             <span class="text-red-400">✗</span> .env:3 &nbsp;&nbsp;
@@ -80,14 +80,12 @@
           <p class="text-accent/80 font-semibold">
             &nbsp;&nbsp;→ BLOCKED &nbsp;policy: no-secrets &nbsp;ref: a3c2f9
           </p>
-          <p class="text-ink-subtle">
-            prompt not sent &nbsp;·&nbsp; logged to ~/.aiconsole/audit.log
-          </p>
+          <p class="text-ink-subtle">prompt not sent &nbsp;·&nbsp; logged to ~/.hookd/audit.log</p>
         </div>
       </div>
       <figcaption class="sr-only">
-        aiconsole intercepts the outbound prompt, finds three secrets in context (.env and config
-        file), blocks the send, and writes a tamper-evident entry to the local audit log.
+        hookd intercepts the outbound prompt, finds three secrets in context (.env and config file),
+        blocks the send, and writes a tamper-evident entry to the local audit log.
       </figcaption>
     </figure>
   </div>

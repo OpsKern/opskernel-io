@@ -26,7 +26,7 @@ const hasEntries = entries.length > 0;
       <div class="max-w-prose mx-auto">
         <h2 class="font-display font-semibold text-4xl mb-4 tracking-tight">What's new</h2>
         <p class="text-ink-muted text-2xl mb-10 max-w-narrow">
-          Fresh AI features aiconsole already knows how to govern.
+          Fresh AI features hookd already knows how to govern.
         </p>
 
         <ul class="divide-y divide-ink-subtle/20 border-y border-ink-subtle/20">
@@ -39,9 +39,9 @@ const hasEntries = entries.length > 0;
                 <h3 class="font-medium text-ink">{entry.data.feature}</h3>
                 <p class="text-sm text-ink-muted">{entry.data.implication}</p>
               </div>
-              {entry.data.aiconsole_doc && (
+              {entry.data.hookd_doc && (
                 <a
-                  href={entry.data.aiconsole_doc}
+                  href={entry.data.hookd_doc}
                   class="text-sm text-accent hover:underline md:justify-self-end"
                 >
                   docs →
@@ -52,7 +52,7 @@ const hasEntries = entries.length > 0;
         </ul>
 
         <p class="font-mono text-xs text-ink-subtle tracking-wide mt-6">
-          Feed refreshed daily from the aiconsole intelligence pipeline.
+          Feed refreshed daily from the hookd intelligence pipeline.
         </p>
       </div>
     </section>

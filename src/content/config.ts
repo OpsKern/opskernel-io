@@ -1,6 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 
-// feature-proposals — intelligence feed from ~/ai-wiki/projects/aiconsole-core/intel/feature-proposals.md
+// feature-proposals — intelligence feed from ~/ai-wiki/projects/hookd-core/intel/feature-proposals.md
 // Populated at build time by .github/workflows/intel-refresh.yml. The source file is .gitignored;
 // CI pulls it via AI_WIKI_DEPLOY_KEY and commits nothing — only the built site gets the content.
 //
@@ -29,7 +29,7 @@ const featureProposals = defineCollection({
     triaged_by: z.string().optional(),
 
     // Optional outgoing link
-    aiconsole_doc: z.string().optional(),
+    hookd_doc: z.string().optional(),
   }),
 });
 

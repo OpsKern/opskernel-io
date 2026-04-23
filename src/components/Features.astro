@@ -1,5 +1,5 @@
 ---
-const features = [
+const primaryFeatures = [
   {
     label: 'Pre-send blocking',
     body: 'Stop the request before it leaves the machine. Not "detect after the fact" — actually prevent the leak.',
@@ -9,20 +9,23 @@ const features = [
     body: 'Works with Claude, GPT, Gemini, Ollama, Cursor, Copilot. Change vendors without rewriting your policy.',
   },
   {
-    label: 'Compliance-ready',
-    body: 'Hooks for SOC 2, HIPAA, and GDPR workflows. DSAR gates. Scoped redaction by data classification.',
-  },
-  {
     label: 'Hash-chained audit',
     body: 'Tamper-evident log of every decision. Exportable. Indexable. Provable.',
   },
+];
+
+const secondaryFeatures = [
   {
-    label: 'DSAR gates',
-    body: 'Answer subject access requests with real data, not guesswork. Each prompt tied to the user and workspace that sent it.',
+    label: 'Compliance-ready',
+    body: 'SOC 2, HIPAA, and GDPR hooks. Scoped redaction by data classification.',
+  },
+  {
+    label: 'DSAR gates (subject access requests)',
+    body: 'Answer access requests with real data — each prompt tied to the user and workspace that sent it.',
   },
   {
     label: 'Local-first',
-    body: 'Classifier, logs, and policies live on the device or your own server. Nothing ships to a SaaS you did not vet.',
+    body: 'Classifier, logs, and policies live on device or your own server. Nothing ships to a SaaS you did not vet.',
   },
 ];
 ---
@@ -30,12 +33,22 @@ const features = [
 <section class="w-full px-6 md:px-12 lg:px-16 py-section">
   <div class="max-w-prose mx-auto">
     <h2 class="font-display font-semibold text-4xl mb-12 tracking-tight">What it does</h2>
-    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <ul class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
       {
-        features.map(({ label, body }) => (
+        primaryFeatures.map(({ label, body }) => (
           <li class="bg-surface-raised rounded-lg p-6 space-y-2">
             <h3 class="font-medium text-ink text-lg">{label}</h3>
             <p class="text-ink-muted">{body}</p>
+          </li>
+        ))
+      }
+    </ul>
+    <ul class="grid grid-cols-1 sm:grid-cols-3 gap-6 border-t border-ink-subtle/20 pt-8">
+      {
+        secondaryFeatures.map(({ label, body }) => (
+          <li class="space-y-1">
+            <h3 class="font-medium text-ink text-sm">{label}</h3>
+            <p class="text-ink-subtle text-xs leading-relaxed">{body}</p>
           </li>
         ))
       }

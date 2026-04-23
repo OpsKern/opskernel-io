@@ -3,85 +3,101 @@ import WaitlistForm from './WaitlistForm.astro';
 ---
 
 <section class="w-full min-h-[60vh] flex flex-col justify-center px-6 md:px-12 lg:px-16 py-section">
-  <div class="max-w-prose">
-    <p class="font-mono text-sm text-ink-muted mb-6 tracking-wide">
-      hookd <span class="text-accent">●</span> local-first AI governance
-    </p>
+  <div class="max-w-6xl mx-auto w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <!-- Left: copy + CTA -->
+      <div>
+        <p class="font-mono text-sm text-ink-muted mb-6 tracking-wide">
+          hookd <span class="text-accent">●</span> local-first AI governance
+        </p>
 
-    <h1
-      class="font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-tight tracking-tight mb-6"
-    >
-      Every prompt you send<br />
-      <span class="text-accent">ships your codebase.</span>
-    </h1>
+        <h1 class="font-display font-bold text-5xl md:text-6xl leading-tight tracking-tight mb-6">
+          Every prompt you send<br />
+          <span class="text-accent">ships your codebase.</span>
+        </h1>
 
-    <p class="text-xl text-ink-muted mb-4 max-w-narrow">
-      hookd intercepts prompts at the OS level — before they hit the network. Redact secrets, block
-      leaks, and keep a tamper-evident log. No SDK. No cloud. Nothing leaves your machine unless you
-      say so.
-    </p>
+        <p class="text-xl text-ink-muted mb-5">
+          hookd intercepts prompts at the OS level — before they hit the network. Redact secrets,
+          block leaks, and keep a tamper-evident log. No SDK. No cloud. Nothing leaves your machine
+          unless you say so.
+        </p>
 
-    <p class="font-mono text-sm text-ink-subtle mb-10 max-w-narrow">
-      Works with Claude Code · Cursor · Copilot · Ollama · GPT · Gemini
-    </p>
+        <p class="text-sm text-ink-subtle mb-8 border-l-2 border-accent/40 pl-3">
+          Unlike Langfuse, Portkey, or any cloud observability layer — hookd runs on your OS, not
+          between your tool and a vendor relay.
+        </p>
 
-    <div class="mb-4 max-w-narrow">
-      <WaitlistForm variant="hero" />
-    </div>
-    <a
-      href="https://github.com/OpsKern/hookd"
-      class="text-ink-muted hover:text-ink text-sm transition-colors mb-12 block"
-    >
-      View the code on GitHub ↗
-    </a>
+        <p class="font-mono text-sm text-ink-subtle mb-8">
+          Works with Claude Code · Cursor · Copilot · Ollama · GPT · Gemini
+        </p>
 
-    <figure class="mt-8" aria-label="Example hookd intercept output">
-      <div
-        class="rounded-lg bg-surface-raised border border-ink-subtle/20 overflow-hidden font-mono text-xs leading-relaxed"
-        role="img"
-        aria-label="Terminal output showing hookd blocking a prompt that contained .env secrets"
-      >
-        <div
-          class="flex items-center gap-2 px-4 py-2 border-b border-ink-subtle/20 bg-surface-sunken"
+        <div class="mb-2 max-w-narrow">
+          <WaitlistForm variant="hero" />
+        </div>
+        <p class="text-ink-subtle text-sm mb-6">
+          Early builds ship to the list before public launch.
+        </p>
+        <a
+          href="https://github.com/OpsKern/hookd"
+          class="text-ink-muted hover:text-ink text-sm transition-colors block"
         >
-          <span class="h-2.5 w-2.5 rounded-full bg-red-500/60"></span>
-          <span class="h-2.5 w-2.5 rounded-full bg-yellow-500/60"></span>
-          <span class="h-2.5 w-2.5 rounded-full bg-green-500/60"></span>
-          <span class="ml-2 text-ink-subtle text-xs tracking-wide">terminal</span>
-        </div>
-        <div class="p-4 space-y-1 text-xs">
-          <p class="text-ink-subtle">$ claude code --write-code auth-middleware.go</p>
-          <p class="text-ink-muted">
-            <span class="text-accent font-semibold">[hookd]</span> intercepted outbound → api.anthropic.com
-          </p>
-          <p class="text-ink-muted pl-4">
-            <span class="text-red-400">✗</span> .env:3 &nbsp;&nbsp;
-            <span class="text-ink-subtle">AWS_SECRET_ACCESS_KEY</span>=<span class="text-red-400/80"
-              >AKIA···</span
-            >
-          </p>
-          <p class="text-ink-muted pl-4">
-            <span class="text-red-400">✗</span> .env:7 &nbsp;&nbsp;
-            <span class="text-ink-subtle">DATABASE_URL</span>=<span class="text-red-400/80"
-              >postgres://prod:···</span
-            >
-          </p>
-          <p class="text-ink-muted pl-4">
-            <span class="text-red-400">✗</span> src/config.go:14 &nbsp;
-            <span class="text-ink-subtle">STRIPE_SECRET</span>=<span class="text-red-400/80"
-              >sk_live_···</span
-            >
-          </p>
-          <p class="text-accent/80 font-semibold">
-            &nbsp;&nbsp;→ BLOCKED &nbsp;policy: no-secrets &nbsp;ref: a3c2f9
-          </p>
-          <p class="text-ink-subtle">prompt not sent &nbsp;·&nbsp; logged to ~/.hookd/audit.log</p>
-        </div>
+          View the code on GitHub ↗
+        </a>
       </div>
-      <figcaption class="sr-only">
-        hookd intercepts the outbound prompt, finds three secrets in context (.env and config file),
-        blocks the send, and writes a tamper-evident entry to the local audit log.
-      </figcaption>
-    </figure>
+
+      <!-- Right: terminal intercept mockup -->
+      <div>
+        <figure aria-label="Example hookd intercept output">
+          <div
+            class="rounded-lg bg-surface-raised border border-ink-subtle/20 overflow-hidden font-mono text-xs leading-relaxed"
+            role="img"
+            aria-label="Terminal output showing hookd blocking a prompt that contained .env secrets"
+          >
+            <div
+              class="flex items-center gap-2 px-4 py-2 border-b border-ink-subtle/20 bg-surface-sunken"
+            >
+              <span class="h-2.5 w-2.5 rounded-full bg-red-500/60"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-yellow-500/60"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-green-500/60"></span>
+              <span class="ml-2 text-ink-subtle text-xs tracking-wide">terminal</span>
+            </div>
+            <div class="p-4 space-y-1 text-xs">
+              <p class="text-ink-subtle">$ claude code --write-code auth-middleware.go</p>
+              <p class="text-ink-muted">
+                <span class="text-accent font-semibold">[hookd]</span> intercepted outbound → api.anthropic.com
+              </p>
+              <p class="text-ink-muted pl-4">
+                <span class="text-red-400">✗</span> .env:3 &nbsp;&nbsp;
+                <span class="text-ink-subtle">AWS_SECRET_ACCESS_KEY</span>=<span
+                  class="text-red-400/80">AKIA···</span
+                >
+              </p>
+              <p class="text-ink-muted pl-4">
+                <span class="text-red-400">✗</span> .env:7 &nbsp;&nbsp;
+                <span class="text-ink-subtle">DATABASE_URL</span>=<span class="text-red-400/80"
+                  >postgres://prod:···</span
+                >
+              </p>
+              <p class="text-ink-muted pl-4">
+                <span class="text-red-400">✗</span> src/config.go:14 &nbsp;
+                <span class="text-ink-subtle">STRIPE_SECRET</span>=<span class="text-red-400/80"
+                  >sk_live_···</span
+                >
+              </p>
+              <p class="text-accent/80 font-semibold">
+                &nbsp;&nbsp;→ BLOCKED &nbsp;policy: no-secrets &nbsp;ref: a3c2f9
+              </p>
+              <p class="text-ink-subtle">
+                prompt not sent &nbsp;·&nbsp; logged to ~/.hookd/audit.log
+              </p>
+            </div>
+          </div>
+          <figcaption class="sr-only">
+            hookd intercepts the outbound prompt, finds three secrets in context (.env and config
+            file), blocks the send, and writes a tamper-evident entry to the local audit log.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
   </div>
 </section>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#000000"/>
+  <rect x="0" y="0" width="4" height="630" fill="#fbbf26"/>
+
+  <!-- hookd wordmark -->
+  <text
+    x="80" y="220"
+    font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+    font-weight="700"
+    font-size="96"
+    fill="#ffffff"
+    letter-spacing="-3"
+  >hookd</text>
+
+  <!-- accent dot -->
+  <circle cx="528" cy="200" r="8" fill="#fbbf26"/>
+
+  <!-- tagline -->
+  <text
+    x="80" y="310"
+    font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+    font-weight="400"
+    font-size="32"
+    fill="#a3a3a3"
+  >Memory is not enforcement.</text>
+
+  <!-- divider -->
+  <rect x="80" y="356" width="60" height="2" fill="#fbbf26" opacity="0.6"/>
+
+  <!-- sub -->
+  <text
+    x="80" y="410"
+    font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+    font-weight="400"
+    font-size="24"
+    fill="#8b8b8b"
+  >OS-level prompt governance · Apache 2.0 · no SDK · no cloud</text>
+
+  <!-- domain -->
+  <text
+    x="80" y="568"
+    font-family="Courier New, monospace"
+    font-size="20"
+    fill="#8b8b8b"
+    letter-spacing="1"
+  >opskernel.io</text>
+</svg>

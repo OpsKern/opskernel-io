@@ -1,5 +1,5 @@
 ---
-
+import WaitlistForm from './WaitlistForm.astro';
 ---
 
 <section class="w-full min-h-[60vh] flex flex-col justify-center px-6 md:px-12 lg:px-16 py-section">
@@ -25,20 +25,15 @@
       Works with Claude Code · Cursor · Copilot · Ollama · GPT · Gemini
     </p>
 
-    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-12">
-      <a
-        href="#waitlist"
-        class="inline-flex items-center justify-center bg-accent text-surface font-semibold px-6 py-3 rounded-md hover:bg-accent-hover active:bg-accent-press transition-colors"
-      >
-        Join the waitlist →
-      </a>
-      <a
-        href="https://github.com/OpsKern/hookd"
-        class="text-ink-muted hover:text-ink text-sm transition-colors"
-      >
-        View the code on GitHub ↗
-      </a>
+    <div class="mb-4 max-w-narrow">
+      <WaitlistForm variant="hero" />
     </div>
+    <a
+      href="https://github.com/OpsKern/hookd"
+      class="text-ink-muted hover:text-ink text-sm transition-colors mb-12 block"
+    >
+      View the code on GitHub ↗
+    </a>
 
     <figure class="mt-8" aria-label="Example hookd intercept output">
       <div

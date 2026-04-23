@@ -40,69 +40,54 @@
       </a>
     </div>
 
-    {/* Block-flow diagram — SVG placeholder until demo GIF lands (Phase B.3.1) */}
-    <figure class="mt-8">
-      <svg
-        viewBox="0 0 560 80"
+    <figure class="mt-8" aria-label="Example aiconsole intercept output">
+      <div
+        class="rounded-lg bg-surface-raised border border-ink-subtle/20 overflow-hidden font-mono text-xs leading-relaxed"
         role="img"
-        aria-label="Prompt flows through aiconsole: redact or block before it reaches the LLM"
-        class="w-full h-auto text-ink"
+        aria-label="Terminal output showing aiconsole blocking a prompt that contained .env secrets"
       >
-        <defs>
-          <style>
-            .node {
-              fill: #1a1a1a;
-              stroke: currentColor;
-              stroke-width: 1.25;
-            }
-            .label {
-              font-family: Poppins, Inter, sans-serif;
-              font-size: 13px;
-              fill: currentColor;
-            }
-            .sub {
-              font-family: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
-              font-size: 10px;
-              fill: #8b8b8b;
-            }
-            .arrow {
-              stroke: currentColor;
-              stroke-width: 1.25;
-              fill: none;
-            }
-            .accent {
-              fill: #fbbf26;
-            }
-          </style>
-        </defs>
-        <rect class="node" x="4" y="22" width="108" height="36" rx="4"></rect>
-        <text class="label" x="58" y="38" text-anchor="middle">prompt</text>
-        <text class="sub" x="58" y="52" text-anchor="middle">Claude/GPT/…</text>
-
-        <line class="arrow" x1="112" y1="40" x2="152" y2="40"></line>
-        <polygon class="arrow" points="146,36 156,40 146,44"></polygon>
-
-        <rect class="node" x="156" y="22" width="108" height="36" rx="4"></rect>
-        <text class="label" x="210" y="38" text-anchor="middle">aiconsole</text>
-        <text class="sub" x="210" y="52" text-anchor="middle">classify · redact</text>
-
-        <line class="arrow" x1="264" y1="40" x2="304" y2="40"></line>
-        <polygon class="arrow" points="298,36 308,40 298,44"></polygon>
-
-        <rect class="node" x="308" y="22" width="108" height="36" rx="4"></rect>
-        <text class="label accent" x="362" y="38" text-anchor="middle">decide</text>
-        <text class="sub" x="362" y="52" text-anchor="middle">allow · block</text>
-
-        <line class="arrow" x1="416" y1="40" x2="456" y2="40"></line>
-        <polygon class="arrow" points="450,36 460,40 450,44"></polygon>
-
-        <rect class="node" x="460" y="22" width="96" height="36" rx="4"></rect>
-        <text class="label" x="508" y="38" text-anchor="middle">LLM / log</text>
-        <text class="sub" x="508" y="52" text-anchor="middle">audit trail</text>
-      </svg>
+        <div
+          class="flex items-center gap-2 px-4 py-2 border-b border-ink-subtle/20 bg-surface-sunken"
+        >
+          <span class="h-2.5 w-2.5 rounded-full bg-red-500/60"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-yellow-500/60"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-green-500/60"></span>
+          <span class="ml-2 text-ink-subtle text-[10px] tracking-wide">terminal</span>
+        </div>
+        <div class="p-4 space-y-1 text-[11px] sm:text-xs">
+          <p class="text-ink-subtle">$ claude code --write-code auth-middleware.go</p>
+          <p class="text-ink-muted">
+            <span class="text-accent font-semibold">[aiconsole]</span> intercepted outbound → api.anthropic.com
+          </p>
+          <p class="text-ink-muted pl-4">
+            <span class="text-red-400">✗</span> .env:3 &nbsp;&nbsp;
+            <span class="text-ink-subtle">AWS_SECRET_ACCESS_KEY</span>=<span class="text-red-400/80"
+              >AKIA···</span
+            >
+          </p>
+          <p class="text-ink-muted pl-4">
+            <span class="text-red-400">✗</span> .env:7 &nbsp;&nbsp;
+            <span class="text-ink-subtle">DATABASE_URL</span>=<span class="text-red-400/80"
+              >postgres://prod:···</span
+            >
+          </p>
+          <p class="text-ink-muted pl-4">
+            <span class="text-red-400">✗</span> src/config.go:14 &nbsp;
+            <span class="text-ink-subtle">STRIPE_SECRET</span>=<span class="text-red-400/80"
+              >sk_live_···</span
+            >
+          </p>
+          <p class="text-accent/80 font-semibold">
+            &nbsp;&nbsp;→ BLOCKED &nbsp;policy: no-secrets &nbsp;ref: a3c2f9
+          </p>
+          <p class="text-ink-subtle">
+            prompt not sent &nbsp;·&nbsp; logged to ~/.aiconsole/audit.log
+          </p>
+        </div>
+      </div>
       <figcaption class="sr-only">
-        aiconsole sits between your prompt and the LLM. It classifies, redacts, and then allows or
-        blocks the send — with a hash-chained audit trail.
+        aiconsole intercepts the outbound prompt, finds three secrets in context (.env and config
+        file), blocks the send, and writes a tamper-evident entry to the local audit log.
       </figcaption>
     </figure>
   </div>

@@ -1,36 +1,51 @@
 /* brand.css — CSS custom properties mirroring tailwind.config.mjs
- * Sourced from brand/brandbook-extracted.md. Until poppler extraction completes,
- * these are placeholders — reconcile against the PDF before public deploy.
+ * Sourced from brand/brandbook-extracted.md (sha256-pinned, 2026-04-23).
+ * Primary palette: amber #FBBF26 / #B55417 on black surface.
+ * Gradient intermediate stops are [PENDING #3] — working approximation below.
  */
 
 :root {
-  --surface: #0b0f14;
-  --surface-raised: #121821;
-  --surface-sunken: #05080c;
+  /* Surface */
+  --surface: #000000;
+  --surface-raised: #1a1a1a;
+  --surface-sunken: #111111;
 
-  --ink: #e6edf3;
-  --ink-muted: #8b98a5;
-  --ink-subtle: #566270;
+  /* Ink (text) — all values pass WCAG AA on --surface */
+  --ink: #ffffff;
+  --ink-muted: #a3a3a3; /* ~6.2:1 on black */
+  --ink-subtle: #8b8b8b; /* ~5.9:1 on black */
 
-  --accent: #4ad3c2;
-  --accent-hover: #5fdecc;
-  --accent-press: #39b8a9;
+  /* Accent — brand amber */
+  --accent: #fbbf26; /* amber bright, Pantone 1235 C */
+  --accent-hover: #f9c655; /* amber light, Pantone 123 C */
+  --accent-press: #b55417; /* amber dark, Pantone 7573 C */
 
+  /* Brand gradient — working approximation; [PENDING #3] for exact midpoints */
+  --gradient: linear-gradient(90deg, #fbbf26 0%, #e8931e 40%, #b55417 100%);
+
+  /* Semantic */
   --danger: #f87171;
-  --warn: #fbbf24;
+  --warn: #fbbf26;
   --ok: #34d399;
 
+  /* Radii */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
 
+  /* Layout */
   --section: 6rem;
   --gutter-mobile: 1.5rem;
   --gutter-tablet: 2rem;
   --gutter-desktop: 4rem;
 
-  --font-sans: 'Inter Variable', Inter, system-ui, sans-serif;
-  --font-display: 'Inter Display', 'Inter Variable', Inter, sans-serif;
+  /* Fonts — display: Helvetica Now (licensed, falls back to system sans)
+   *          sans:    Poppins (canonical per brandbook p.17); Inter fallback
+   *          mono:    JetBrains Mono Variable
+   * Wordmark font: [PENDING #4] — not calling it in CSS until designer confirms.
+   */
+  --font-display: 'Helvetica Now Display', 'Helvetica Now', Helvetica, Arial, sans-serif;
+  --font-sans: Poppins, Inter, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
 }
 
@@ -38,7 +53,6 @@ html {
   background: var(--surface);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-feature-settings: 'ss01', 'cv11';
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }

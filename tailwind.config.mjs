@@ -19,13 +19,13 @@ export default {
         // Semantic aliases for site use
         surface: {
           DEFAULT: '#000000', // dark-first: black base
-          raised: '#1A1A1A', // slightly lifted dark surface
-          sunken: '#000000',
+          raised: '#1A1A1A', // cards, elevated sections
+          sunken: '#111111', // alternating sections; must differ from DEFAULT for visual rhythm
         },
         ink: {
           DEFAULT: '#FFFFFF',
-          muted: '#3D3D3D',
-          subtle: '#8B8B8B',
+          muted: '#A3A3A3', // mid-gray, WCAG AA on black surface (~6.2:1); #3D3D3D is light-surface only
+          subtle: '#8B8B8B', // WCAG AA on black (~5.9:1); captions, hints
         },
         accent: {
           DEFAULT: '#FBBF26', // amber bright

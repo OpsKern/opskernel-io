@@ -26,46 +26,59 @@ brandbook, the brandbook wins — refresh this file and re-upload.
 
 ## Do / Don't
 
-- **Do:** generous whitespace, monospace for code tokens, dark surface with a
-  single cool accent, functional diagrams, sharp 90° corners with ≤4 px
+- **Do:** generous whitespace, monospace for code tokens, black surface with a
+  single warm amber accent, functional SVG diagrams, sharp 90° corners with ≤4 px
   rounding on interactive elements.
-- **Don't:** hand-drawn accents, serif display, terracotta/cream palettes,
+- **Don't:** hand-drawn accents, serif display, teal/blue palettes,
   fake-AI-glow gradients, stock "abstract tech" imagery, clip-art shields,
   carousels, modals-on-load.
 
 ## Palette (Tailwind tokens)
 
-> Placeholder values pending brandbook extraction. Do not deploy with these
-> until `brand/brandbook-extracted.md` is populated and reconciled.
+> Extracted from `brand/brandbook-extracted.md` (sha256-pinned, 2026-04-23).
+> Gradient intermediate stops are [PENDING #3] — working approximation below.
 
 ```yaml
+brand:
+  amber: '#FBBF26' # primary, Pantone 1235 C — logo, CTAs, active
+  amber-dark: '#B55417' # primary, Pantone 7573 C — hover, gradient end
+  amber-light: '#F9C655' # secondary, Pantone 123 C — accents
+  orange: '#BC682F' # secondary, gradient midtone
+  gray-dark: '#3D3D3D' # secondary — use on light surfaces ONLY
+  white: '#FFFFFF'
+  black: '#000000'
 surface:
-  DEFAULT: '#0B0F14' # dark page background
-  raised: '#121821' # cards, elevated sections
-  sunken: '#05080C' # footer, code blocks
+  DEFAULT: '#000000' # dark page background
+  raised: '#1A1A1A' # cards, elevated sections
+  sunken: '#111111' # alternating sections
 ink:
-  DEFAULT: '#E6EDF3' # body text on surface
-  muted: '#8B98A5' # secondary text
-  subtle: '#566270' # captions, form hints
+  DEFAULT: '#FFFFFF' # body text on surface
+  muted: '#A3A3A3' # secondary text (~6.2:1 on black, WCAG AA)
+  subtle: '#8B8B8B' # captions, form hints (~5.9:1 on black, WCAG AA)
 accent:
-  DEFAULT: '#4AD3C2' # primary CTA, active state
-  hover: '#5FDECC'
-  press: '#39B8A9'
+  DEFAULT: '#FBBF26' # amber bright — primary CTA, active state
+  hover: '#F9C655' # amber light
+  press: '#B55417' # amber dark
+gradient:
+  approx: 'linear-gradient(90deg, #FBBF26 0%, #E8931E 40%, #B55417 100%)'
 semantic:
   danger: '#F87171'
-  warn: '#FBBF24'
+  warn: '#FBBF26'
   ok: '#34D399'
 ```
 
+Approved text-on-color: white on amber gradient · black/amber on white · white/amber on black.
 All text must clear WCAG AA (4.5:1 body, 3:1 large) against the surface it sits on.
 
 ## Typography
 
-- **Display:** grotesk sans — `"Inter Display"` or `"Inter Variable"` as fallback
-  until brandbook display face is sourced. Hero copy only.
-- **Body sans:** `"Inter Variable"` / `Inter` / `system-ui`. Everything non-display.
+- **Display:** `"Helvetica Now Display"` / `"Helvetica Now"` / Helvetica / Arial.
+  Licensed font — falls back to system Helvetica gracefully. Hero headings and section H2.
+  Wordmark font: [PENDING #4] — not implementing until designer confirms.
+- **Body sans:** `Poppins` (canonical per brandbook p.17) / `Inter` / `system-ui`.
+  Loaded via Google Fonts at 400/500/600/700.
 - **Mono:** `"JetBrains Mono Variable"` / `"JetBrains Mono"` / `ui-monospace`.
-  Code tokens, inline `key=value`, terminal output, install one-liner.
+  Code tokens, inline `key=value`, terminal output, step numbers.
 - **Weights:** 400 body, 500 labels, 600 H2/H3, 700 H1/display hero.
 
 ## Type scale
@@ -108,7 +121,7 @@ Before a Claude Design export is merged:
 
 - [ ] All colors are Tailwind tokens — no hex values in component files
 - [ ] All spacing is a 0.25rem multiple
-- [ ] All fonts are from the declared family — no accidental Google Fonts
+- [ ] All fonts are from the declared family (Helvetica Now / Poppins via GFonts / JetBrains Mono)
 - [ ] Primary CTA is unique on the page and above the fold
 - [ ] Dark-mode renders with no pure-black (#000) or pure-white (#FFF) text
 - [ ] Focus rings visible on all interactive elements

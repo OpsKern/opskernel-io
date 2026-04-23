@@ -6,10 +6,12 @@
   <div class="max-w-prose mx-auto">
     <div class="border-l-2 border-accent/40 pl-6 space-y-4 max-w-narrow">
       <p class="text-ink text-xl leading-relaxed">
-        "I manage M365 environments for regulated organizations — email security, PowerShell,
-        Copilot in VS Code every day. The scripts contain credentials, tenant configs, user data.
-        Every policy doc says 'don't paste sensitive context into AI prompts.' That's a reminder. It
-        relies on memory. I built hookd because memory is not enforcement."
+        "I was directing Copilot on what not to include in generated code — security boundaries,
+        what to redact, what to exclude. It was writing those instructions into its own memory. I
+        thought I had controls in place. Then I noticed it deviating: context pressure, session
+        resets, additional context crowding out the rules — I'm still not entirely sure why. The
+        instructions were there. The AI chose not to follow them. You can't put enforcement inside
+        the thing you're trying to constrain. That's why hookd works at the OS level."
       </p>
       <div class="flex items-center gap-3">
         <div

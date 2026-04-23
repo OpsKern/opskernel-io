@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Pre-commit guard for opskern-website.
+#
+# Enable once per clone:
+#     git config core.hooksPath .githooks
+#
+# Runs: gitleaks → brand-check → prettier --check → astro check → astro build.
+# Any failure blocks the commit. Do NOT bypass with --no-verify.
+
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+fail() {
+  echo "pre-commit: FAIL — $1" >&2
+  exit 1
+}
+
+# 1. gitleaks — scan staged diff only
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged --redact --no-banner --config .gitleaks.toml \
+    || fail "gitleaks found secrets in staged changes"
+else
+  echo "pre-commit: WARNING — gitleaks not installed (brew install gitleaks). Skipping secret scan." >&2
+fi
+
+# 2. brandbook sha256 pin
+bash scripts/brand-check.sh || fail "brand-check.sh"
+
+# 3. prettier --check on staged files
+STAGED="$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(astro|ts|tsx|js|mjs|json|md|yml|yaml|css|html)$' || true)"
+if [[ -n "$STAGED" ]]; then
+  if command -v bunx >/dev/null 2>&1; then
+    echo "$STAGED" | xargs bunx prettier --check || fail "prettier --check"
+  else
+    echo "pre-commit: WARNING — bunx missing; skipping prettier. Install bun." >&2
+  fi
+fi
+
+# 4. astro check (type)
+if command -v bunx >/dev/null 2>&1; then
+  bunx astro check || fail "astro check"
+fi
+
+# 5. astro build (catches template errors)
+if command -v bunx >/dev/null 2>&1; then
+  bunx astro build || fail "astro build"
+fi
+
+echo "pre-commit: OK"

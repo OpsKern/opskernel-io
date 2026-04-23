@@ -1,0 +1,19 @@
+---
+// Fathom — cookieless analytics. Site ID injected at build time from FATHOM_SITE_ID.
+// Lazy-loaded via `defer` to keep it behind first contentful paint (Lighthouse hygiene).
+// Safe to omit the tag entirely in dev — the placeholder default just no-ops.
+const siteId = import.meta.env.FATHOM_SITE_ID ?? 'PLACEHOLDER';
+const enabled = siteId !== 'PLACEHOLDER' && import.meta.env.PROD;
+---
+
+{
+  enabled && (
+    <script
+      is:inline
+      src="https://cdn.usefathom.com/script.js"
+      data-site={siteId}
+      data-spa="auto"
+      defer
+    />
+  )
+}

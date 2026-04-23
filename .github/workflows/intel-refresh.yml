@@ -1,0 +1,72 @@
+name: intel-refresh
+
+on:
+  schedule:
+    - cron: '0 8 * * *' # 08:00 UTC daily
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  deployments: write
+
+jobs:
+  refresh:
+    name: pull feature-proposals from ai-wiki + redeploy on diff
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: setup ai-wiki deploy key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.AI_WIKI_DEPLOY_KEY }}
+
+      - name: pull feature-proposals
+        run: |
+          set -euo pipefail
+          mkdir -p src/content/feature-proposals
+          mkdir -p /tmp/ai-wiki
+          git clone --depth 1 git@github.com:OpsKern/ai-wiki.git /tmp/ai-wiki
+          SRC=/tmp/ai-wiki/projects/aiconsole-core/intel/feature-proposals.md
+          DST=src/content/feature-proposals/latest.md
+          if [[ ! -f "$SRC" ]]; then
+            echo "intel-refresh: source missing at $SRC — nothing to pull"
+            exit 0
+          fi
+          cp "$SRC" "$DST"
+
+      - name: short-circuit if no content diff
+        id: diff
+        run: |
+          if git diff --quiet --exit-code src/content/feature-proposals/latest.md; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "intel-refresh: no content diff — skipping redeploy"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: build
+        if: steps.diff.outputs.changed == 'true'
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.12'
+
+      - name: install + build
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          bun install --frozen-lockfile
+          bunx astro build
+
+      - name: deploy
+        if: steps.diff.outputs.changed == 'true'
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: opskernel-io-site
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: main

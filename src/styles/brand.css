@@ -1,0 +1,61 @@
+/* brand.css — CSS custom properties mirroring tailwind.config.mjs
+ * Sourced from brand/brandbook-extracted.md. Until poppler extraction completes,
+ * these are placeholders — reconcile against the PDF before public deploy.
+ */
+
+:root {
+  --surface: #0b0f14;
+  --surface-raised: #121821;
+  --surface-sunken: #05080c;
+
+  --ink: #e6edf3;
+  --ink-muted: #8b98a5;
+  --ink-subtle: #566270;
+
+  --accent: #4ad3c2;
+  --accent-hover: #5fdecc;
+  --accent-press: #39b8a9;
+
+  --danger: #f87171;
+  --warn: #fbbf24;
+  --ok: #34d399;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  --section: 6rem;
+  --gutter-mobile: 1.5rem;
+  --gutter-tablet: 2rem;
+  --gutter-desktop: 4rem;
+
+  --font-sans: 'Inter Variable', Inter, system-ui, sans-serif;
+  --font-display: 'Inter Display', 'Inter Variable', Inter, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
+}
+
+html {
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}

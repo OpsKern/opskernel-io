@@ -1,0 +1,30 @@
+---
+const anchors = ['Apache 2.0', 'local-first', 'no SDK required', 'vendor-neutral'];
+
+const engines = ['Claude', 'GPT', 'Gemini', 'Ollama', 'Cursor', 'Copilot'];
+---
+
+<section class="w-full border-y border-ink-subtle/20 bg-surface-sunken">
+  <div class="max-w-prose mx-auto px-6 py-10 text-center">
+    <p
+      class="font-mono text-sm text-ink-muted tracking-wide flex flex-wrap justify-center gap-x-4 gap-y-2"
+    >
+      {
+        anchors.map((a, i) => (
+          <>
+            <span>{a}</span>
+            {i < anchors.length - 1 && (
+              <span class="text-ink-subtle/60" aria-hidden="true">
+                ·
+              </span>
+            )}
+          </>
+        ))
+      }
+    </p>
+    <p class="text-ink-subtle text-xs uppercase tracking-widest mt-8 mb-4">Works with</p>
+    <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-ink-muted font-medium">
+      {engines.map((e) => <span class="text-sm">{e}</span>)}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,34 @@
+# Node / Astro
+node_modules/
+dist/
+.astro/
+.output/
+
+# Bun — lockfile is committed for reproducible CI (`bun install --frozen-lockfile`)
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Generated content — repopulated by intel-refresh.yml at build time, not vendored
+src/content/feature-proposals/latest.md
+
+# Build artefacts
+.vercel/
+.netlify/
+.wrangler/
+
+# Local logs
+*.log
+
+# Bun home-path misresolution artifact (creates literal ~ dir)
+~/

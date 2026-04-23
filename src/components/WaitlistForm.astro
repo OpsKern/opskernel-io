@@ -1,0 +1,56 @@
+---
+export interface Props {
+  id?: string;
+  variant?: 'hero' | 'footer';
+}
+
+const { id = 'waitlist', variant = 'hero' } = Astro.props;
+
+// Buttondown form target — activated in Phase A.1 after DMARC/Turnstile.
+// Until then, the form is rendered but the submit handler is inert.
+const BUTTONDOWN_USER = 'aiconsole'; // TODO(A.1): lock once Buttondown account created
+const ACTIVE = false; // flip to true in Phase A.1
+---
+
+<form
+  id={id}
+  class:list={[
+    'flex flex-col sm:flex-row gap-3 w-full',
+    variant === 'hero' && 'max-w-narrow',
+    variant === 'footer' && 'max-w-narrow',
+  ]}
+  action={ACTIVE
+    ? `https://buttondown.email/api/emails/embed-subscribe/${BUTTONDOWN_USER}`
+    : undefined}
+  method="post"
+  target="popupwindow"
+  onsubmit={ACTIVE
+    ? `window.open('https://buttondown.email/${BUTTONDOWN_USER}', 'popupwindow')`
+    : 'return false'}
+>
+  <label for={`${id}-email`} class="sr-only">Email address</label>
+  <input
+    id={`${id}-email`}
+    type="email"
+    name="email"
+    required
+    autocomplete="email"
+    placeholder="you@company.com"
+    class="flex-1 bg-surface-raised text-ink placeholder:text-ink-subtle rounded-md px-4 py-3 border border-ink-subtle/40 focus:outline-none focus-visible:border-accent"
+    disabled={!ACTIVE}
+  />
+  <button
+    type="submit"
+    class="bg-accent text-surface font-medium px-5 py-3 rounded-md hover:bg-accent-hover active:bg-accent-press transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+    disabled={!ACTIVE}
+  >
+    {ACTIVE ? 'Join waitlist' : 'Waitlist — opens soon'}
+  </button>
+</form>
+{
+  !ACTIVE && (
+    <p class="text-ink-subtle text-sm mt-2">
+      Waitlist opens after Buttondown DMARC + Turnstile (Phase A.1).
+    </p>
+  )
+}

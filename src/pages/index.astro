@@ -1,0 +1,33 @@
+---
+import Base from '~/layouts/Base.astro';
+import Hero from '~/components/Hero.astro';
+import Trust from '~/components/Trust.astro';
+import Problem from '~/components/Problem.astro';
+import HowItWorks from '~/components/HowItWorks.astro';
+import Features from '~/components/Features.astro';
+import Pricing from '~/components/Pricing.astro';
+import WhatsNew from '~/components/WhatsNew.astro';
+import FooterCTA from '~/components/FooterCTA.astro';
+import FathomTag from '~/components/FathomTag.astro';
+import ConsentBanner from '~/components/ConsentBanner.astro';
+
+// Placeholder page is noindex until Phase B.6 review pass clears the flip.
+const NOINDEX_UNTIL_LAUNCH = true;
+---
+
+<Base noindex={NOINDEX_UNTIL_LAUNCH}>
+  <FathomTag slot="head" />
+
+  <main>
+    <Hero />
+    <Trust />
+    <Problem />
+    <HowItWorks />
+    <Features />
+    <Pricing />
+    <WhatsNew />
+    <FooterCTA />
+  </main>
+
+  <ConsentBanner />
+</Base>

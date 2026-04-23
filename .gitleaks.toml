@@ -1,0 +1,29 @@
+# gitleaks — secret scanning config
+# Runs in .githooks/pre-commit and ci.yml. Default ruleset plus a few additions
+# specific to this project.
+
+title = "opskern-website gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Known-safe patterns"
+paths = [
+  # Vendored PDF is binary; gitleaks shouldn't scan it
+  '''brand/brandbook\.pdf$''',
+  # Design drafts may contain placeholder text that looks like secrets
+  '''src/components/_claude-design-drafts/.*''',
+]
+
+[[rules]]
+id = "buttondown-api-key"
+description = "Buttondown API key"
+regex = '''(?i)buttondown[_\-\s]?(api[_\-]?key|token)[^a-z0-9]{0,3}[a-z0-9]{32,}'''
+tags = ["key", "buttondown"]
+
+[[rules]]
+id = "fathom-site-id-placeholder"
+description = "Block real Fathom site IDs committed to the repo; they belong in GitHub secrets."
+regex = '''(?i)fathom[_\-\s]?site[_\-]?id[^a-z0-9]{0,3}[A-Z]{7}\b'''
+tags = ["analytics", "fathom"]

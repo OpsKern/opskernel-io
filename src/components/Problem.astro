@@ -1,0 +1,41 @@
+---
+const pains = [
+  {
+    label: 'Prompt leaks',
+    body: 'Secrets, credentials, and customer PII end up in prompts you never meant to send. There is no undo once the request hits the provider.',
+  },
+  {
+    label: 'Code leaks',
+    body: 'Your full repo context rides in every Cursor autocomplete and every Claude Code message. Vendor training policies change; your NDA doesn\u2019t.',
+  },
+  {
+    label: 'No audit trail',
+    body: 'Compliance auditors want a record of what AI saw. SaaS LLM vendors don\u2019t give you one — and a screenshot is not a hash-chained log.',
+  },
+];
+---
+
+<section class="w-full px-6 md:px-12 lg:px-16 py-section">
+  <div class="max-w-prose mx-auto">
+    <h2 class="font-display font-semibold text-4xl mb-10 tracking-tight">
+      Your AI assistant is an exfiltration vector<br />
+      <span class="text-ink-muted">you haven't audited.</span>
+    </h2>
+    <ul class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {
+        pains.map(({ label, body }) => (
+          <li class="space-y-3">
+            <div
+              class="h-8 w-8 rounded-md bg-accent/15 text-accent flex items-center justify-center font-mono text-sm"
+              aria-hidden="true"
+            >
+              ●
+            </div>
+            <h3 class="font-medium text-ink">{label}</h3>
+            <p class="text-ink-muted">{body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,84 @@
+---
+import Base from '~/layouts/Base.astro';
+
+const updated = '2026-04-22';
+---
+
+<Base
+  title="Privacy policy — aiconsole"
+  description="What aiconsole collects, why, and how to remove it."
+  noindex={true}
+>
+  <main class="w-full px-6 md:px-12 lg:px-16 py-section">
+    <article class="max-w-prose mx-auto space-y-6 text-ink">
+      <header class="space-y-2">
+        <p class="font-mono text-sm text-ink-muted tracking-wide">aiconsole · from OpsKern</p>
+        <h1 class="font-display font-bold text-4xl tracking-tight">Privacy policy</h1>
+        <p class="font-mono text-xs uppercase tracking-widest text-ink-subtle">
+          Last updated {updated}
+        </p>
+      </header>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl">What this page covers</h2>
+        <p class="text-ink-muted">
+          This policy covers <strong class="text-ink">opskernel.io</strong> — the aiconsole marketing
+          site. It does <em>not</em> cover the aiconsole software you run on your machine. The software
+          is local-first by design: your prompts and audit logs live on your device or on a server you
+          control, and we never see them.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl">What we collect here</h2>
+        <ul class="space-y-2 list-disc list-inside text-ink-muted">
+          <li>
+            <strong class="text-ink">Waitlist email</strong> — if you fill in the waitlist form, we store
+            your email address in Buttondown so we can tell you when aiconsole is ready. Unsubscribe from
+            any email.
+          </li>
+          <li>
+            <strong class="text-ink">Anonymous page views</strong> — we use Fathom, which is cookieless
+            and does not build a profile of you.
+          </li>
+          <li>
+            <strong class="text-ink">Server logs</strong> — Cloudflare keeps short-lived edge logs of
+            requests for abuse prevention.
+          </li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl">What the software collects</h2>
+        <p class="text-ink-muted">
+          Nothing that leaves your machine. The classifier, policy rules, and hash-chained audit log
+          run locally. If you deploy the Team Server, logs live on the server you chose. aiconsole
+          does not send telemetry home.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl">How to remove your data</h2>
+        <p class="text-ink-muted">
+          Email <a class="text-accent hover:underline" href="mailto:privacy@opskernel.io"
+            >privacy@opskernel.io</a
+          >. We will confirm identity and delete within 30 days.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl">Contact</h2>
+        <p class="text-ink-muted">
+          aiconsole is operated by Will Smith (pending LLC formation) —
+          <a class="text-accent hover:underline" href="mailto:hello@opskernel.io"
+            >hello@opskernel.io</a
+          >.
+        </p>
+      </section>
+
+      <p class="font-mono text-xs text-ink-subtle tracking-wide pt-6">
+        <a href="/" class="hover:text-accent">← aiconsole home</a>
+      </p>
+    </article>
+  </main>
+</Base>

@@ -1,0 +1,6 @@
+[install]
+# Frozen on CI; writeable locally
+exact = true
+
+[install.cache]
+dir = "~/.bun/install/cache"

@@ -1,0 +1,53 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+  workflow_run:
+    workflows: [ci, lighthouse]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: write
+  deployments: write
+
+jobs:
+  prod:
+    name: cloudflare-pages-prod
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: >
+      github.event_name == 'push' ||
+      github.event.workflow_run.conclusion == 'success'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.12'
+
+      - run: bun install --frozen-lockfile
+      - run: bunx astro build
+
+      - name: deploy prod
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: opskernel-io-site
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+
+      - name: tag deploy
+        run: |
+          SHORT=$(git rev-parse --short=7 HEAD)
+          TAG="deploy-$(date -u +%Y-%m-%d)-$SHORT"
+          git tag "$TAG"
+          git push origin "$TAG"

@@ -1,0 +1,14 @@
+# Brandbook version pin
+# Bump `version:` whenever `brandbook.pdf` changes. `scripts/brand-check.sh`
+# recomputes sha256 and fails CI if the hash drifts without a matching bump.
+
+version: 1
+imported_at: 2026-04-22
+imported_from: ~/Downloads/brandbook (2).pdf
+sha256: 560a9452ba65a1013f63e23c18d349aecbc0104dbfc9325471676cf6424e02d7
+notes: |
+  Initial import from the operator-provided brandbook. Extraction (wordmark, palette,
+  type stack, clear-space) deferred until `poppler` is installed and
+  `brand/brandbook-extracted.md` is populated. Until then, `tailwind.config.mjs`
+  uses placeholder tokens (dark surface + teal accent) that MUST be reconciled
+  against the PDF before any public deploy.

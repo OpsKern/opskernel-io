@@ -1,0 +1,80 @@
+---
+// EU consent copy via Cloudflare Worker edge-injection.
+// We do NOT geo-block. EU visitors get an extra line explaining:
+//   - what we collect (email only, for the waitlist)
+//   - how to opt out (unsubscribe link in every email)
+// The Worker reads cf-ipcountry and injects `data-cf-country` on <html>.
+// We progressively enhance from that attribute — no JS runs unless the
+// attribute is present.
+//
+// See Phase B.4 / Gap 4 in async-swinging-bonbon.md for the full flow.
+---
+
+<div
+  id="consent-banner"
+  hidden
+  class="fixed bottom-4 left-4 right-4 md:left-auto md:w-96 bg-surface-raised border border-ink-subtle/20 rounded-lg p-5 shadow-lg text-sm z-50"
+  role="region"
+  aria-label="Privacy notice"
+>
+  <p class="text-ink mb-3">
+    aiconsole collects only your email address when you join the waitlist. We use it to send
+    build-ready notifications and can be unsubscribed at any time via the link in every email.
+  </p>
+  <div class="flex gap-3 justify-end">
+    <a href="/privacy" class="text-accent hover:underline">Privacy policy</a>
+    <button type="button" id="consent-dismiss" class="font-medium text-ink hover:text-accent">
+      Got it
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const eu = new Set([
+      'AT',
+      'BE',
+      'BG',
+      'HR',
+      'CY',
+      'CZ',
+      'DK',
+      'EE',
+      'FI',
+      'FR',
+      'DE',
+      'GR',
+      'HU',
+      'IE',
+      'IT',
+      'LV',
+      'LT',
+      'LU',
+      'MT',
+      'NL',
+      'PL',
+      'PT',
+      'RO',
+      'SK',
+      'SI',
+      'ES',
+      'SE',
+      'GB',
+      'NO',
+      'IS',
+      'LI',
+      'CH',
+    ]);
+    const country = document.documentElement.getAttribute('data-cf-country') || '';
+    const key = 'consent-dismissed';
+    if (!eu.has(country) || localStorage.getItem(key) === '1') return;
+    const banner = document.getElementById('consent-banner');
+    const dismiss = document.getElementById('consent-dismiss');
+    if (!banner || !dismiss) return;
+    banner.hidden = false;
+    dismiss.addEventListener('click', () => {
+      banner.hidden = true;
+      localStorage.setItem(key, '1');
+    });
+  })();
+</script>

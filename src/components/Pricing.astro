@@ -1,0 +1,106 @@
+---
+const tiers = [
+  {
+    name: 'Desktop',
+    price: 'Free',
+    license: 'Apache 2.0',
+    tagline: 'For individuals and small teams who want to run aiconsole on their own machine.',
+    features: [
+      'Pre-send blocking on every prompt',
+      'Local classifier + policy rules',
+      'Hash-chained audit log (on device)',
+      'Claude, GPT, Gemini, Ollama, Cursor, Copilot',
+      'Self-host — no cloud dependency',
+    ],
+    cta: { label: 'Join waitlist', href: '#waitlist' },
+    emphasis: false,
+  },
+  {
+    name: 'Team Server',
+    price: 'Post-beta',
+    license: 'BSL 1.1',
+    tagline: 'Shared policy + central audit for a team. Runs on your own server.',
+    features: [
+      'Everything in Desktop',
+      'Shared policy across devices',
+      'Centralised hash-chained log',
+      'SSO (OIDC) + user scopes',
+      'DSAR gates + scoped redaction',
+    ],
+    cta: { label: 'Join waitlist', href: '#waitlist' },
+    emphasis: true,
+  },
+  {
+    name: 'Enterprise',
+    price: 'Later',
+    license: 'Custom',
+    tagline: 'For regulated industries that need compliance packaging and signed attestations.',
+    features: [
+      'Everything in Team Server',
+      'SOC 2 / HIPAA / GDPR workflows',
+      'Signed audit exports',
+      'Air-gapped deployment option',
+      'Dedicated support',
+    ],
+    cta: { label: 'Talk to us', href: 'mailto:hello@opskernel.io' },
+    emphasis: false,
+  },
+];
+---
+
+<section class="w-full px-6 md:px-12 lg:px-16 py-section bg-surface-sunken">
+  <div class="max-w-prose mx-auto">
+    <h2 class="font-display font-semibold text-4xl mb-4 tracking-tight">Pricing</h2>
+    <p class="text-ink-muted text-2xl mb-12 max-w-narrow">
+      Desktop is free forever. Team Server ships post-beta. Enterprise comes later.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {
+        tiers.map(({ name, price, license, tagline, features, cta, emphasis }) => (
+          <article
+            class:list={[
+              'bg-surface-raised rounded-lg p-8 flex flex-col',
+              emphasis && 'border border-accent/60 shadow-[0_0_0_1px_rgba(74,211,194,0.15)]',
+            ]}
+          >
+            <header class="mb-6">
+              <h3 class="font-medium text-ink text-xl">{name}</h3>
+              <p class="font-display text-3xl mt-2">{price}</p>
+              <p class="font-mono text-xs uppercase tracking-widest text-accent mt-2">{license}</p>
+            </header>
+
+            <p class="text-ink-muted mb-6">{tagline}</p>
+
+            <ul class="space-y-2 text-sm text-ink mb-8 flex-1">
+              {features.map((f) => (
+                <li class="flex gap-2">
+                  <span class="text-accent" aria-hidden="true">
+                    ·
+                  </span>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={cta.href}
+              class:list={[
+                'inline-flex items-center justify-center font-medium px-5 py-3 rounded-md transition-colors',
+                emphasis
+                  ? 'bg-accent text-surface hover:bg-accent-hover active:bg-accent-press'
+                  : 'bg-transparent text-accent border border-accent hover:bg-accent/10',
+              ]}
+            >
+              {cta.label}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="font-mono text-xs text-ink-subtle tracking-wide mt-8">
+      Licenses above are per-tier and reviewed by OK_clo-review before any edit.
+    </p>
+  </div>
+</section>

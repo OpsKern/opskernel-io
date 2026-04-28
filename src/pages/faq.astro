@@ -4,15 +4,19 @@ import Base from '~/layouts/Base.astro';
 const faqs = [
   {
     q: 'Why is the repo called hookd-core and the binary opskern-console and the product hookd?',
-    a: `OpsKern is the company that operates hookd. "hookd" is the product name on this site. "hookd-core" is the open-source repository that ships the product. "opskern-console" is the CLI binary — historical naming from when the CLI predated the product split. An "hookd" symlink shim is on the backlog so the public command matches the product name; until then, both names point at the same binary.`,
+    a: `OpsKern is the company that built hookd. "hookd" is the product name. "hookd-core" is the open-source repository at github.com/opskernel-io/hookd. "opskern-console" is the CLI binary — historical naming from when the CLI predated the product split. A "hookd" symlink shim is on the backlog so the public command matches the product name; until then, both names point at the same binary.`,
   },
   {
     q: 'How is this different from a DLP or a proxy?',
     a: 'DLPs and proxies run after the request leaves the machine — they detect, then react. hookd intercepts the prompt at the OS level before the request is built, classifies it with a local ruleset, and either redacts, blocks, or allows. The send never happens until hookd decides.',
   },
   {
-    q: 'Which LLMs does it work with?',
-    a: 'Claude, GPT, Gemini, Ollama, Cursor, and Copilot on day one. The capture layer is vendor-neutral — any desktop or CLI client that talks HTTPS is reachable. If you use a less common client, ask.',
+    q: 'Which LLMs and tools does it work with?',
+    a: 'Claude Code, Cursor, GitHub Copilot, Ollama, GPT (via CLI), Gemini CLI, Codex CLI, and Aider on day one. The capture layer is vendor-neutral — any desktop or CLI client that talks HTTPS is reachable. If you use a tool not on this list, ask.',
+  },
+  {
+    q: 'What platforms does hookd run on?',
+    a: 'macOS (signed and notarized), Linux (AppImage, unsigned), and Windows (CI-verified build, unsigned pre-launch). Signed Windows builds are on the roadmap pending code-signing cert provisioning.',
   },
   {
     q: 'Does anything leave my machine?',
@@ -23,8 +27,8 @@ const faqs = [
     a: 'The desktop edition is Apache 2.0. Team Server (post-beta) will be BSL 1.1 with a two-year relicense to Apache 2.0. Enterprise licensing is custom. Each pricing tier lists the license explicitly — no surprises.',
   },
   {
-    q: 'When does the waitlist open?',
-    a: 'The form is live but intentionally disabled while we finish Buttondown DMARC + Turnstile wiring. It flips on during Phase A.1 of our launch plan — typically within a week of DNS going live.',
+    q: 'How do I get early access?',
+    a: 'Join the waitlist. Early access is invite-only — we roll out to the list in small batches before public launch. Priority goes to teams in regulated industries (HIPAA, SOC 2, GDPR) and to individual developers using Claude Code or Cursor daily.',
   },
   {
     q: 'How does the audit trail work?',
@@ -32,7 +36,7 @@ const faqs = [
   },
   {
     q: 'Can I run it air-gapped?',
-    a: 'Yes. The desktop edition has no external network requirement. Enterprise adds signed attestations and a deploy kit for air-gapped environments.',
+    a: 'Yes. The desktop edition has no external network requirement. The planned Team Server adds signed attestations and a deploy kit for air-gapped environments.',
   },
 ];
 ---

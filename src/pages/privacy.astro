@@ -4,12 +4,8 @@ import Base from '~/layouts/Base.astro';
 const updated = '2026-04-22';
 ---
 
-<Base
-  title="Privacy policy — hookd"
-  description="What hookd collects, why, and how to remove it."
-  noindex={true}
->
-  <main class="w-full px-6 md:px-12 lg:px-16 py-section">
+<Base title="Privacy policy — hookd" description="What hookd collects, why, and how to remove it.">
+  <main id="main" class="w-full px-6 md:px-12 lg:px-16 py-section">
     <article class="max-w-prose mx-auto space-y-6 text-ink">
       <header class="space-y-2">
         <p class="font-mono text-sm text-ink-muted tracking-wide">hookd · from OpsKern</p>
@@ -60,7 +56,7 @@ const updated = '2026-04-22';
       <section class="space-y-3">
         <h2 class="font-display text-2xl">How to remove your data</h2>
         <p class="text-ink-muted">
-          Email <a class="text-accent hover:underline" href="mailto:privacy@opskernel.io"
+          Email <a class="text-accent underline" href="mailto:privacy@opskernel.io"
             >privacy@opskernel.io</a
           >. We will confirm identity and delete within 30 days.
         </p>
@@ -70,9 +66,7 @@ const updated = '2026-04-22';
         <h2 class="font-display text-2xl">Contact</h2>
         <p class="text-ink-muted">
           hookd is operated by Will Smith (pending LLC formation) —
-          <a class="text-accent hover:underline" href="mailto:hello@opskernel.io"
-            >hello@opskernel.io</a
-          >.
+          <a class="text-accent underline" href="mailto:hello@opskernel.io">hello@opskernel.io</a>.
         </p>
       </section>
 

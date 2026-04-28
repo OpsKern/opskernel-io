@@ -1,4 +1,2 @@
-# aiconsole — opskernel.io
-# Pre-launch posture: disallow everything until Phase B.6 clears the noindex meta.
 User-agent: *
-Disallow: /
+Allow: /

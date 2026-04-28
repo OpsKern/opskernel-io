@@ -30,18 +30,21 @@ jobs:
           mkdir -p src/content/feature-proposals
           mkdir -p /tmp/ai-wiki
           git clone --depth 1 git@github.com:OpsKern/ai-wiki.git /tmp/ai-wiki
-          SRC=/tmp/ai-wiki/projects/hookd/intel/feature-proposals.md
-          DST=src/content/feature-proposals/latest.md
-          if [[ ! -f "$SRC" ]]; then
-            echo "intel-refresh: source missing at $SRC — nothing to pull"
+          SRC_DIR=/tmp/ai-wiki/projects/hookd-core/intel/proposals
+          if [[ ! -d "$SRC_DIR" ]]; then
+            echo "intel-refresh: source directory missing at $SRC_DIR — nothing to pull"
             exit 0
           fi
-          cp "$SRC" "$DST"
+          # Replace all proposal files; orphaned entries are cleaned on each run.
+          rm -f src/content/feature-proposals/*.md
+          cp "$SRC_DIR"/*.md src/content/feature-proposals/
+          FILE_COUNT=$(ls src/content/feature-proposals/*.md 2>/dev/null | wc -l)
+          echo "intel-refresh: copied $FILE_COUNT proposal file(s)"
 
       - name: short-circuit if no content diff
         id: diff
         run: |
-          if git diff --quiet --exit-code src/content/feature-proposals/latest.md; then
+          if git diff --quiet --exit-code src/content/feature-proposals/; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "intel-refresh: no content diff — skipping redeploy"
           else

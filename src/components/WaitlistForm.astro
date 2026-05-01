@@ -6,9 +6,10 @@ export interface Props {
 
 const { id = 'waitlist', variant = 'hero' } = Astro.props;
 
-// Buttondown list: username 'opskern', sending domain newsletter.opskernel.io (DNS validated 2026-04-21).
-// Turnstile deferred — low-volume waitlist stage; add before list goes above ~1k/day.
-const BUTTONDOWN_USER = 'opskern';
+// Buttondown: username 'hookd', sending domain newsletter.opskernel.io (DNS validated 2026-04-21).
+// Turnstile site key: 0x4AAAAAADG7fb-PHmC0zWQF (secret key in Cloudflare Pages env: TURNSTILE_SECRET_KEY).
+// Turnstile wiring deferred — requires a Pages Function proxy before it can validate server-side.
+const BUTTONDOWN_USER = 'hookd';
 const ACTIVE = true;
 ---
 
@@ -20,12 +21,12 @@ const ACTIVE = true;
     variant === 'footer' && 'max-w-narrow',
   ]}
   action={ACTIVE
-    ? `https://buttondown.email/api/emails/embed-subscribe/${BUTTONDOWN_USER}`
+    ? `https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_USER}`
     : undefined}
   method="post"
   target="popupwindow"
   onsubmit={ACTIVE
-    ? `window.open('https://buttondown.email/${BUTTONDOWN_USER}', 'popupwindow')`
+    ? `window.open('https://buttondown.com/${BUTTONDOWN_USER}', 'popupwindow')`
     : 'return false'}
 >
   <label for={`${id}-email`} class="sr-only">Email address</label>

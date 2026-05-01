@@ -50,6 +50,9 @@ export default {
         '4xl': ['2rem', { lineHeight: '1.15', letterSpacing: '-0.015em' }],
         '2xl': ['1.25rem', { lineHeight: '1.35' }],
       },
+      backgroundImage: {
+        'brand-gradient': 'linear-gradient(90deg, #FBBF26 0%, #E8931E 40%, #B55417 100%)',
+      },
       spacing: {
         section: '6rem',
       },

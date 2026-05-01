@@ -18,6 +18,7 @@ Thumbs.db
 .env
 .env.local
 .env.*.local
+.dev.vars
 
 # Generated content — repopulated by intel-refresh.yml at build time, not vendored
 src/content/feature-proposals/latest.md

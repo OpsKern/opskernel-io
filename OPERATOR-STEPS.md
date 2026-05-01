@@ -70,8 +70,20 @@ Launch gate registry: `~/ai-wiki/projects/aiconsole-core/intel/legacy-product-re
    `ACTIVE = false` to `ACTIVE = true` and fill in the Buttondown endpoint + Turnstile
    site key. Open a PR; OK_web-design + OK_dpo-review must approve.
 
-5. **Email forwarding** — enable Cloudflare Email Routing for opskernel.io; forward
-   `postmaster@`, `hello@`, and `privacy@` to the operator inbox.
+5. **Email forwarding** ✅ — support@/feedback@/postmaster@/privacy@/hello@ routed via
+   Cloudflare Email Routing.
+
+6. **Buttondown icon + share image** — in Buttondown Settings → General:
+   - Icon: upload `hookd-icon.png` (200×200 px, on ~/Desktop)
+   - Share image: upload `hookd-og.png` (1200×630 px, on ~/Desktop)
+
+7. **Buttondown redirect URLs** — in Buttondown Settings → General → Redirects:
+   - After subscribing: `https://opskernel.io/subscribed`
+   - After confirming: `https://opskernel.io/confirmed`
+
+8. **Welcome sequence** — write at least one automation in Buttondown (Settings →
+   Automations) sent after a new subscriber confirms. Subject: "You're in — what hookd
+   actually does". See `docs/email-welcome-sequence.md` (TODO) for draft copy.
 
 ---
 

@@ -6,51 +6,134 @@ export interface Props {
 
 const { id = 'waitlist', variant = 'hero' } = Astro.props;
 
-// Buttondown list: username 'opskern', sending domain newsletter.opskernel.io (DNS validated 2026-04-21).
-// Turnstile deferred — low-volume waitlist stage; add before list goes above ~1k/day.
-const BUTTONDOWN_USER = 'opskern';
+// Buttondown: username 'hookd', sending domain newsletter.opskernel.io (DNS validated 2026-04-21).
+// Turnstile site key: 0x4AAAAAADG7fb-PHmC0zWQF (secret key in Cloudflare Pages env: TURNSTILE_SECRET_KEY).
+const TURNSTILE_SITE_KEY = '0x4AAAAAADG7fb-PHmC0zWQF';
 const ACTIVE = true;
 ---
 
-<form
-  id={id}
+<div
   class:list={[
-    'flex flex-col sm:flex-row gap-3 w-full',
-    variant === 'hero' && 'max-w-narrow',
-    variant === 'footer' && 'max-w-narrow',
+    'flex flex-col gap-3 w-full',
+    variant === 'hero' || variant === 'footer' ? 'max-w-narrow' : '',
   ]}
-  action={ACTIVE
-    ? `https://buttondown.email/api/emails/embed-subscribe/${BUTTONDOWN_USER}`
-    : undefined}
-  method="post"
-  target="popupwindow"
-  onsubmit={ACTIVE
-    ? `window.open('https://buttondown.email/${BUTTONDOWN_USER}', 'popupwindow')`
-    : 'return false'}
 >
-  <label for={`${id}-email`} class="sr-only">Email address</label>
-  <input
-    id={`${id}-email`}
-    type="email"
-    name="email"
-    required
-    autocomplete="email"
-    placeholder="you@company.com"
-    class="flex-1 bg-surface-raised text-ink placeholder:text-ink-subtle rounded-md px-4 py-3 border border-ink-subtle/40 focus:outline-none focus-visible:border-accent"
-    disabled={!ACTIVE}
-  />
-  <button
-    type="submit"
-    class="bg-accent text-surface font-medium px-5 py-3 rounded-md hover:bg-accent-hover active:bg-accent-press transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-    disabled={!ACTIVE}
-  >
-    {ACTIVE ? 'Get early access' : 'Waitlist — opens soon'}
-  </button>
-</form>
-{
-  !ACTIVE && (
-    <p class="text-ink-subtle text-sm mt-2">
-      Waitlist opens after Buttondown DMARC + Turnstile (Phase A.1).
-    </p>
-  )
-}
+  {
+    ACTIVE ? (
+      <form
+        id={id}
+        class="flex flex-col gap-3 w-full"
+        action="/api/subscribe"
+        method="post"
+        data-waitlist
+      >
+        <div class="flex flex-col sm:flex-row gap-3">
+          <label for={`${id}-email`} class="sr-only">
+            Email address
+          </label>
+          <input
+            id={`${id}-email`}
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="you@company.com"
+            class="flex-1 bg-surface-raised text-ink placeholder:text-ink-subtle rounded-md px-4 py-3 border border-ink-subtle/40 focus:outline-none focus-visible:border-accent"
+          />
+          <button
+            type="submit"
+            class="bg-accent text-surface font-medium px-5 py-3 rounded-md hover:bg-accent-hover active:bg-accent-press transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            Get early access
+          </button>
+        </div>
+
+        <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark" />
+
+        <p class="waitlist-status text-sm hidden" aria-live="polite" />
+      </form>
+    ) : (
+      <>
+        <div class="flex flex-col sm:flex-row gap-3 max-w-narrow">
+          <input
+            type="email"
+            placeholder="you@company.com"
+            disabled
+            class="flex-1 bg-surface-raised text-ink placeholder:text-ink-subtle rounded-md px-4 py-3 border border-ink-subtle/40 opacity-60 cursor-not-allowed"
+          />
+          <button
+            disabled
+            class="bg-accent text-surface font-medium px-5 py-3 rounded-md opacity-60 cursor-not-allowed"
+          >
+            Waitlist — opens soon
+          </button>
+        </div>
+        <p class="text-ink-subtle text-sm mt-2">
+          Waitlist opens after Buttondown DMARC + Turnstile (Phase A.1).
+        </p>
+      </>
+    )
+  }
+</div>
+
+<script>
+  // Load Turnstile script once, regardless of how many form instances are on the page
+  if (!document.getElementById('cf-turnstile-script')) {
+    const s = document.createElement('script');
+    s.id = 'cf-turnstile-script';
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    s.async = true;
+    s.defer = true;
+    document.head.appendChild(s);
+  }
+
+  declare global {
+    interface Window {
+      turnstile?: { reset: (el: Element) => void };
+    }
+  }
+
+  document.querySelectorAll<HTMLFormElement>('form[data-waitlist]').forEach((form) => {
+    const statusEl = form.querySelector<HTMLParagraphElement>('.waitlist-status');
+    const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!statusEl || !submitBtn) return;
+
+      submitBtn.disabled = true;
+      statusEl.className = 'waitlist-status text-sm text-ink-subtle';
+      statusEl.textContent = 'Submitting…';
+
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          body: new FormData(form),
+        });
+
+        const data: { ok?: boolean; error?: string } = await res.json();
+
+        if (data.ok) {
+          statusEl.className = 'waitlist-status text-sm text-accent';
+          statusEl.textContent = "You're on the list. Check your inbox to confirm.";
+          form.reset();
+          // Reset Turnstile widget so it's ready for re-use
+          if (typeof window.turnstile !== 'undefined') {
+            const widget = form.querySelector<HTMLElement>('.cf-turnstile');
+            if (widget) window.turnstile.reset(widget);
+          }
+          submitBtn.disabled = false;
+        } else {
+          statusEl.className = 'waitlist-status text-sm text-red-400';
+          statusEl.textContent = data.error ?? 'Something went wrong. Please try again.';
+          submitBtn.disabled = false;
+        }
+      } catch {
+        statusEl.className = 'waitlist-status text-sm text-red-400';
+        statusEl.textContent = 'Network error. Please try again.';
+        submitBtn.disabled = false;
+      }
+    });
+  });
+</script>

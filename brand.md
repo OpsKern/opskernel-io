@@ -1,4 +1,4 @@
-# aiconsole brand — human-readable guide
+# hookd brand — human-readable guide
 
 > Canonical source: `brand/brandbook.pdf` (sha256-pinned via `brand/brandbook-version.yml`).
 > Machine-readable: `design/skill.md` for Claude Design; `tailwind.config.mjs` for build-time tokens.
@@ -40,7 +40,7 @@ surface.raised border. No drop shadows, no perspective tilt.
 ## Logo behavior
 
 See `brand/brandbook-extracted.md` once poppler is installed and extraction runs.
-Until then, use the text wordmark "aiconsole" in the display family, lowercase, tracking
+Until then, use the text wordmark "hookd" in the display family, lowercase, tracking
 -0.02em. Company chip ("from OpsKern") stays in the footer only.
 
 ## Derivation

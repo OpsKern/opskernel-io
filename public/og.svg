@@ -2,18 +2,26 @@
   <rect width="1200" height="630" fill="#000000"/>
   <rect x="0" y="0" width="4" height="630" fill="#fbbf26"/>
 
-  <!-- hookd wordmark -->
+  <!-- hookd lockup: Gate mark (64px) + 16px gap + wordmark -->
+  <!-- Gate mark at 64px: 32-unit viewBox × scale(2), centered on text caps -->
+  <g transform="translate(80, 153) scale(2)" shape-rendering="geometricPrecision">
+    <path d="M 4 9 L 11 16 L 4 23" fill="none" stroke="#B45309" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 21 9 L 28 16 L 21 23" fill="none" stroke="#B45309" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="14.5" y="6" width="3" height="20" rx="1.5" fill="#FBBF26"/>
+  </g>
+
+  <!-- hookd wordmark — Poppins SemiBold, amber, -0.02em tracking -->
   <text
-    x="80" y="220"
-    font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
-    font-weight="700"
+    x="160" y="220"
+    font-family="Poppins, Helvetica Neue, Helvetica, Arial, sans-serif"
+    font-weight="600"
     font-size="96"
-    fill="#ffffff"
+    fill="#FBBF26"
     letter-spacing="-3"
   >hookd</text>
 
-  <!-- accent dot -->
-  <circle cx="528" cy="200" r="8" fill="#fbbf26"/>
+  <!-- accent dot — shifted with wordmark -->
+  <circle cx="608" cy="200" r="8" fill="#fbbf26"/>
 
   <!-- tagline -->
   <text

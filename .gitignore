@@ -26,6 +26,7 @@ src/content/feature-proposals/latest.md
 .vercel/
 .netlify/
 .wrangler/
+.lighthouseci/
 
 # Local logs
 *.log

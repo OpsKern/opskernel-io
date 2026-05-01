@@ -48,7 +48,12 @@ const ACTIVE = true;
           </button>
         </div>
 
-        <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark" />
+        <div
+          class="cf-turnstile"
+          data-sitekey={TURNSTILE_SITE_KEY}
+          data-theme="dark"
+          data-appearance="interaction-only"
+        />
 
         <p class="waitlist-status text-sm hidden" aria-live="polite" />
       </form>
@@ -115,15 +120,11 @@ const ACTIVE = true;
         const data: { ok?: boolean; error?: string } = await res.json();
 
         if (data.ok) {
-          statusEl.className = 'waitlist-status text-sm text-accent';
-          statusEl.textContent = "You're on the list. Check your inbox to confirm.";
-          form.reset();
-          // Reset Turnstile widget so it's ready for re-use
-          if (typeof window.turnstile !== 'undefined') {
-            const widget = form.querySelector<HTMLElement>('.cf-turnstile');
-            if (widget) window.turnstile.reset(widget);
+          const container = form.parentElement;
+          if (container) {
+            container.innerHTML =
+              '<p class="text-accent text-sm font-medium">You\'re on the list — check your inbox to confirm.</p>';
           }
-          submitBtn.disabled = false;
         } else {
           statusEl.className = 'waitlist-status text-sm text-red-400';
           statusEl.textContent = data.error ?? 'Something went wrong. Please try again.';

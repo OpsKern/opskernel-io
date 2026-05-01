@@ -7,21 +7,49 @@ import Base from '~/layouts/Base.astro';
   description="Your spot on the hookd waitlist is confirmed. We'll be in touch."
 >
   <main id="main" class="w-full px-6 md:px-12 lg:px-16 py-section">
-    <div class="max-w-prose mx-auto text-center space-y-6">
-      <p class="font-mono text-sm text-ink-muted tracking-wide">hookd · from OpsKern</p>
+    <div class="max-w-prose mx-auto space-y-8">
+      <p class="font-mono text-sm text-ink-muted tracking-wide text-center">hookd · from OpsKern</p>
 
-      <h1 class="font-display font-bold text-4xl tracking-tight text-ink">You're on the list</h1>
+      <h1 class="font-display font-bold text-4xl tracking-tight text-ink text-center">
+        You're on the list
+      </h1>
 
-      <p class="text-ink-muted text-lg">
-        Your email is confirmed. We'll reach out when early access opens.
-      </p>
+      <div
+        class="border border-surface-raised rounded-lg p-6 space-y-4 text-ink-muted text-base leading-relaxed"
+      >
+        <p>Hey,</p>
 
-      <p class="text-ink-subtle text-sm">
-        Questions? Reply to your confirmation email or write to
+        <p>Thanks for joining the hookd waitlist.</p>
+
+        <p>
+          Here's what you're signing up for: hookd sits between your keyboard and every AI tool on
+          your machine. Before Claude Code, Cursor, or Copilot can send a prompt, hookd reads it,
+          classifies it against your policy, and decides whether to redact, block, or let it
+          through. The decision happens locally — no cloud hop, no latency tax.
+        </p>
+
+        <p>
+          The problem it solves: most AI policy failures happen at the prompt layer, not the model
+          layer. Your model doesn't know your IP is proprietary. hookd does.
+        </p>
+
+        <p>
+          We're opening early access in batches. You'll get an email when your spot is ready — no
+          action needed until then.
+        </p>
+
+        <p class="pt-2">
+          — Will<br />
+          <span class="font-mono text-sm text-ink-subtle">OpsKern</span>
+        </p>
+      </div>
+
+      <p class="text-ink-subtle text-sm text-center">
+        Questions? Write to
         <a href="mailto:hello@opskernel.io" class="text-accent underline">hello@opskernel.io</a>.
       </p>
 
-      <p class="font-mono text-xs text-ink-subtle tracking-wide pt-6">
+      <p class="font-mono text-xs text-ink-subtle tracking-wide text-center">
         <a href="/" class="hover:text-accent">← hookd home</a>
       </p>
     </div>
